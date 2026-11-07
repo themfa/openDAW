@@ -1,15 +1,15 @@
-# Color & Noise fork: keep CLI uploads small. Git-triggered deploys clone the repo and ignore this.
-.git
-node_modules
-**/dist
-crates/target
-test-files
-video
-wiki
-audits
-errors
-plans
-future-plans
-announcements
-docs
-assets.opendaw.studio
+# Color & Noise fork: keep deploy uploads small. Vercel applies this to git deploys as well,
+# so every pattern is anchored to the repo root; nothing here may match inside packages/.
+/.git
+/node_modules
+/crates/target
+/test-files
+/video
+/wiki
+/audits
+/errors
+/plans
+/future-plans
+/announcements
+/docs
+/assets.opendaw.studio
