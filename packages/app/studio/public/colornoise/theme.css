@@ -41,3 +41,13 @@ html, body {
    Help & feedback stays. Layout-only: the DOM and openDAW's logic are untouched. */
 a.contest { display: none !important; }
 [class^="Dashboard"] .rail > *:nth-child(n + 2) { display: none !important; }
+
+/* First screen as a menu, not a landing page. The hero wordmark and tagline,
+   the community actions (Live Room, Neural Demux), the manuals tile row and
+   the footer's legal links are hidden; New Project, Open Bundle, the
+   Projects/Templates/Demos list and Help & feedback stay. Layout-only. */
+[class^="Dashboard"] .intro .hero { display: none !important; }
+[class^="ActionButtons"] .action:nth-child(2),
+[class^="ActionButtons"] .action:nth-child(4) { display: none !important; }
+[class^="IntroTiles"] { display: none !important; }
+[class^="footer"] > div:last-child { display: none !important; }
