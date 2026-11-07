@@ -19,8 +19,25 @@
   const engine = () => window.opendaw && window.opendaw.engine;
   const context = () => window.__colorNoiseTap && window.__colorNoiseTap.primary && window.__colorNoiseTap.primary.context;
 
-  let last = { playing: null, ppqn: null };
+  let last = { playing: null, ppqn: null, hasProject: null, bpmHint: null };
   let sent = 0;
+
+  // openDAW's console surface has no "project open" or tempo accessor, so
+  // both are read from the document (best effort, documented in
+  // COLOR-AND-NOISE.md): the body carries `no-project` until a project is
+  // open, and the header's tempo field is a UnitDisplay whose unit div says
+  // "bpm" next to the value div.
+  const hasProject = () => !document.body.classList.contains('no-project');
+  const bpmHint = () => {
+    const units = document.querySelectorAll('[class^="UnitDisplay"] > div');
+    for (const unit of units) {
+      if (unit.textContent.trim() === 'bpm') {
+        const value = parseFloat(unit.parentElement.firstElementChild.textContent);
+        return Number.isFinite(value) ? value : null;
+      }
+    }
+    return null;
+  };
 
   const sample = () => {
     const e = engine();
@@ -28,13 +45,17 @@
     if (!e || !ctx) return;
     let playing, ppqn;
     try { playing = !!e.isPlaying(); ppqn = e.position(); } catch { return; }
-    if (playing === last.playing && ppqn === last.ppqn) return;
-    last = { playing, ppqn };
+    const project = hasProject();
+    const bpm = bpmHint();
+    if (playing === last.playing && ppqn === last.ppqn && project === last.hasProject && bpm === last.bpmHint) return;
+    last = { playing, ppqn, hasProject: project, bpmHint: bpm };
     sent++;
     channel.postMessage({
       type: 'state',
       playing,
       ppqn,
+      hasProject: project,
+      bpmHint: bpm,
       audioTime: ctx.currentTime,
       perfTime: performance.now(),
       sampleRate: ctx.sampleRate,
