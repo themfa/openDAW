@@ -1,0 +1,43 @@
+/* Color & Noise theme for openDAW (Color & Noise DECISIONS.md 65).
+   openDAW writes its palette as --color-* custom properties onto <html> at
+   boot (Colors.ts). Inline properties outrank a stylesheet, so these carry
+   !important; nothing else about openDAW changes. The host is a warm
+   near-black with quiet, tonal accents: openDAW's cool hue-197 ramp becomes
+   the host's neutral ramp, and its saturated blue/orange become desaturated
+   tints that still read as "active" and "warning" without shouting. */
+:root {
+  --color-white: #ffffff !important;
+  --color-bright: #fafafa !important;
+  --color-gray: #e4e4e7 !important;
+  --color-dark: #c8c6c3 !important;
+  --color-shadow: #8e8b87 !important;
+  --color-black: #4e4b48 !important;
+  --color-background: #0b0a0a !important;
+  --color-panel-background: #141312 !important;
+  --color-panel-background-bright: #1b1918 !important;
+  --color-panel-background-dark: #110f0f !important;
+  --color-header-background: #080707 !important;
+  --color-footer-background: #0f0e0e !important;
+  --color-menu-active: #3a3634 !important;
+  --color-active: #e6dccb !important;
+  --color-blue: #cfe3ea !important;
+  --color-green: #b9d9c3 !important;
+  --color-yellow: #ece2b8 !important;
+  --color-cream: #e6dccb !important;
+  --color-orange: #e9c39f !important;
+  --color-red: #e38a82 !important;
+  --color-purple: #d9c3dc !important;
+  --color-divider: rgb(255 255 255 / 0.08) !important;
+}
+
+html, body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Inside Color & Noise the dashboard is an entry to the project, not a
+   community page: the contest badge and the rail's third-party sections
+   (backup providers, links, sponsors, sample vendors, contributors) are hidden.
+   Help & feedback stays. Layout-only: the DOM and openDAW's logic are untouched. */
+a.contest { display: none !important; }
+[class^="Dashboard"] .rail > *:nth-child(n + 2) { display: none !important; }
