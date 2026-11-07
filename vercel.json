@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install",
+  "buildCommand": "npx turbo build --filter=@opendaw/app-studio... --output-logs=errors-only",
+  "outputDirectory": "packages/app/studio/dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/sound/manuals/:path*", "destination": "https://opendaw.studio/manuals/:path*" },
+    { "source": "/sound/:path((?!.*\\.).*)", "destination": "/sound/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/sound/:path*",
+      "headers": [
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" }
+      ]
+    },
+    {
+      "source": "/sound/:path(.*\\.wasm)",
+      "headers": [{ "key": "Content-Type", "value": "application/wasm" }]
+    }
+  ]
+}

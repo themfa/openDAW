@@ -31,3 +31,5 @@ packages/app/studio/.env
 /announcements/temp.txt
 /tmp/
 /packages/studio/docs/scripting/
+.vercel
+.env*

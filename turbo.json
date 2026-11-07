@@ -4,7 +4,12 @@
     "CI",
     "BRANCH_NAME",
     "DEPLOY_ENV",
-    "VITE_WCLAP_ORIGIN"
+    "VITE_WCLAP_ORIGIN",
+    "OPENDAW_BASE",
+    "OPENDAW_PREBUILT_WASM",
+    "VERCEL_PROJECT_NAME",
+    "VERCEL_ENV",
+    "VC_MICROFRONTENDS_CONFIG"
   ],
   "tasks": {
     "build": {

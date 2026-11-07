@@ -1,5 +1,27 @@
 import {isDefined, Lazy, Notifier, Observer, Option, Subscription} from "@opendaw/lib-std"
 
+// Color & Noise fork: let the SPA run under a sub-path (e.g. /sound/) when built with a Vite `base`.
+// The base is read from the module entry script's URL, so no extra configuration is needed:
+// "/sound/main.<hash>.js" -> "/sound"; a root deployment ("/main.<hash>.js") -> "".
+const routeBase = (() => {
+    let cached: Option<string> = Option.None
+    return (): string => {
+        if (cached.nonEmpty()) {return cached.unwrap()}
+        const script = document.querySelector<HTMLScriptElement>("script[type=module][src]")
+        const pathname = isDefined(script) ? new URL(script.src, location.href).pathname : "/"
+        const base = pathname.slice(0, pathname.lastIndexOf("/")).replace(/\/$/, "")
+        cached = Option.wrap(base)
+        return base
+    }
+})()
+const stripBase = (pathname: string): string => {
+    const base = routeBase()
+    if (base.length === 0 || !pathname.startsWith(base)) {return pathname}
+    const rest = pathname.slice(base.length)
+    return rest.length === 0 ? "/" : rest
+}
+const withBase = (path: string): string => path.startsWith("/") ? routeBase() + path : path
+
 export class RouteLocation {
     @Lazy
     static get(): RouteLocation {return new RouteLocation()}
@@ -16,7 +38,7 @@ export class RouteLocation {
         if (this.path === path) {
             return false
         }
-        history.pushState(null, "", path)
+        history.pushState(null, "", withBase(path))
         this.#setCanonical()
         this.#notifier.notify(this)
         return true
@@ -28,7 +50,7 @@ export class RouteLocation {
         if (this.path === path) {
             return false
         }
-        history.replaceState(null, "", path)
+        history.replaceState(null, "", withBase(path))
         this.#setCanonical()
         this.#notifier.notify(this)
         return true
@@ -39,7 +61,7 @@ export class RouteLocation {
         return this.#notifier.subscribe(observer)
     }
 
-    get path(): string {return location.pathname}
+    get path(): string {return stripBase(location.pathname)}
 
     #setCanonical(): void {
         const url = location.href

@@ -8,7 +8,7 @@
     "./device-url": "./src/device-url.ts"
   },
   "scripts": {
-    "build": "sh ./build-wasm.sh",
+    "build": "sh ../../../scripts/wasm-or-prebuilt.sh matchering",
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.ts\"",
     "test": "vitest run"

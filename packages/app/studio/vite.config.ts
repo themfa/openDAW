@@ -19,7 +19,12 @@ export default defineConfig(({command}) => {
     const isCI = process.env.CI === "true"
     const branchName = process.env.BRANCH_NAME || "main"
     const envFolder = process.env.DEPLOY_ENV || (branchName === "main" ? "main" : "dev")
-    const base = (command === "build" && isCI) ? `/${envFolder}/releases/${uuid}/` : "/"
+    // Color & Noise fork: served as a Vercel Microfrontends child under /sound, so every asset and
+    // route lives under that base and the build lands in dist/sound (the host routes /sound/* here).
+    // OPENDAW_BASE (always with a trailing slash) wins over the upstream CI release-folder scheme.
+    const colorNoiseBase = process.env.OPENDAW_BASE
+    const base = colorNoiseBase ?? ((command === "build" && isCI) ? `/${envFolder}/releases/${uuid}/` : "/")
+    const outDir = colorNoiseBase ? `dist${colorNoiseBase.replace(/\/$/, "")}` : "dist"
 
     return {
         base,
@@ -36,6 +41,7 @@ export default defineConfig(({command}) => {
                 "@opendaw/studio-icons", "@opendaw/studio-markdown", "@opendaw/studio-scrollbars"]
         },
         build: {
+            outDir,
             target: "esnext",
             minify: true,
             sourcemap: true,
