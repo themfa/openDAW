@@ -78,3 +78,22 @@ a.contest { display: none !important; }
 @media (min-width: 1280px) {
   [data-app-header] { padding-right: 168px !important; }
 }
+
+/* The host's control scale. The two Add buttons take the host's quiet
+   fill and ink instead of openDAW's cyan and green (their colours arrive as
+   inline custom properties, so these are overridden here). The transport's
+   unit captions (BAR, BEAT, BPM, METER, SHUFFLE) take the host's caption
+   grey instead of the display's stroke colour. */
+[class^="CreateTrackButtons"] > * {
+  --color: #f4f4f5 !important;
+  --color-active: #e6dccb !important;
+  background: rgb(255 255 255 / 0.07) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  padding: 6px 10px !important;
+}
+[data-app-header] [class*="UnitDisplay"] > div:nth-child(2) {
+  color: #a1a1aa !important;
+  font-size: 9px !important;
+}
