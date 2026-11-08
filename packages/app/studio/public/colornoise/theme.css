@@ -71,3 +71,10 @@ a.contest { display: none !important; }
    One pair, in the timeline where tracks appear; the placeholder keeps its
    text. */
 [class^="NoAudioUnitSelectedPlaceholder"] [class^="CreateTrackButtons"] { display: none !important; }
+
+/* From 1280px the host's Instrument monitor (128×72) sits on the header's
+   line at its right end; the header keeps that end clear for it. Below
+   1280px the monitor is smaller and stays inside the host's own row. */
+@media (min-width: 1280px) {
+  [data-app-header] { padding-right: 168px !important; }
+}
