@@ -50,6 +50,19 @@
         "dist/**"
       ]
     },
+    "@opendaw/studio-scripting#build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        "dist/**",
+        "src/api.declaration.d.ts"
+      ]
+    },
     "@opendaw/app-studio#build": {
       "dependsOn": [
         "^build"

@@ -19,13 +19,14 @@ import {SampleIndex} from "./SampleIndex"
 import {fetchIndex} from "./IndexFetch"
 import {z} from "zod"
 import {AudioData, WavFile} from "@opendaw/lib-dsp"
+import {AssetsRoot} from "./AssetsRoot"
 
 const SampleError = z.object({error: z.string()})
 
 // Standard openDAW samples (considered to be non-removable)
 export class OpenSampleAPI implements SampleAPI {
     static readonly ApiRoot = "https://api.opendaw.studio/samples"
-    static readonly FileRoot = "https://assets.opendaw.studio/samples"
+    static readonly FileRoot = `${AssetsRoot}/samples`
     static readonly IndexFile = `${OpenSampleAPI.FileRoot}/index.json`
 
     @Lazy

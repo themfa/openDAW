@@ -5,9 +5,10 @@ import {HttpStatus, retryTransient} from "./HttpRetry"
 import {OpenDAWHeaders} from "./OpenDAWHeaders"
 import {CommunityIndex, CommunityScript, CommunityScriptIndex, CommunityScriptTarget} from "./CommunityIndex"
 import {WclapIndex} from "./WclapIndex"
+import {AssetsRoot} from "./AssetsRoot"
 
 export class CommunityAPI {
-    static readonly FileRoot = "https://assets.opendaw.studio/community"
+    static readonly FileRoot = `${AssetsRoot}/community`
     static readonly ScriptsIndexFile = `${CommunityAPI.FileRoot}/scripts/index.json`
     static readonly WclapsIndexFile = `${CommunityAPI.FileRoot}/wclaps/index.json`
 

@@ -1,5 +1,6 @@
 import {panic} from "@opendaw/lib-std"
 import {defineTask} from "../Task"
+import {AssetsRoot} from "../AssetsRoot"
 
 export interface BasicPitchInput {
     readonly audio: Float32Array     // mono, 22050 Hz expected by Basic Pitch
@@ -24,7 +25,7 @@ export const BasicPitchTask = defineTask<BasicPitchInput, BasicPitchOutput>({
     model: {
         // Self-hosted on assets.opendaw.studio. Source:
         // AEmotionStudio/basic-pitch-onnx-models (Apache-2.0).
-        url: "https://assets.opendaw.studio/models/basic-pitch/v0.4.0/model.onnx",
+        url: `${AssetsRoot}/models/basic-pitch/v0.4.0/model.onnx`,
         sha256: "2c3c1d144bfa61ad236e92e169c13535c880469a12a047d4e73451f2c059a0ec",
         bytes: 230_444,
         version: "v0.4.0"
