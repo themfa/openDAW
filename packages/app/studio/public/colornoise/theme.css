@@ -51,3 +51,10 @@ a.contest { display: none !important; }
 [class^="ActionButtons"] .action:nth-child(4) { display: none !important; }
 [class^="IntroTiles"] { display: none !important; }
 [class^="footer"] > div:last-child { display: none !important; }
+
+/* The header's app menu is labelled by the vendor's wordmark. Inside Color &
+   Noise the host names the environment once, in its own pill, so the menu
+   button reads "Menu" instead. The button, its triangle and its menu are
+   untouched; only the h5's text is swapped. */
+[data-app-header] h5 { font-size: 0 !important; }
+[data-app-header] h5::after { content: "Menu"; font-size: 0.75rem; }
