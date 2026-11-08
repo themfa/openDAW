@@ -65,3 +65,9 @@ a.contest { display: none !important; }
 /* The status row (Online, Project, SampleRate, Output, Memory) takes the
    host's caption treatment: 12px, the host's secondary text colour. */
 [class^="footer"] { font-size: 0.75rem !important; color: #a1a1aa !important; }
+
+/* With no track selected, openDAW offers "Add instrument / Add audio track"
+   twice: in the timeline lane and again in the devices panel's placeholder.
+   One pair, in the timeline where tracks appear; the placeholder keeps its
+   text. */
+[class^="NoAudioUnitSelectedPlaceholder"] [class^="CreateTrackButtons"] { display: none !important; }
