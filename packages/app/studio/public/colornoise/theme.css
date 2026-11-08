@@ -16,8 +16,11 @@
   --color-panel-background: #141312 !important;
   --color-panel-background-bright: #1b1918 !important;
   --color-panel-background-dark: #110f0f !important;
-  --color-header-background: #080707 !important;
-  --color-footer-background: #0f0e0e !important;
+  /* Header and footer sit on the host's ground, so the toolbar continues the
+     host band above it as one surface and the status row meets the dock lane
+     below with no edge. */
+  --color-header-background: #0b0a0a !important;
+  --color-footer-background: #0b0a0a !important;
   --color-menu-active: #3a3634 !important;
   --color-active: #e6dccb !important;
   --color-blue: #cfe3ea !important;
@@ -58,3 +61,7 @@ a.contest { display: none !important; }
    untouched; only the h5's text is swapped. */
 [data-app-header] h5 { font-size: 0 !important; }
 [data-app-header] h5::after { content: "Menu"; font-size: 0.75rem; }
+
+/* The status row (Online, Project, SampleRate, Output, Memory) takes the
+   host's caption treatment: 12px, the host's secondary text colour. */
+[class^="footer"] { font-size: 0.75rem !important; color: #a1a1aa !important; }
