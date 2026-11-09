@@ -17,6 +17,7 @@ import {GraphPage} from "@/ui/pages/GraphPage"
 import {SignalGraphPage} from "@/ui/pages/SignalGraphPage"
 import {CodeEditorPage} from "@/ui/pages/CodeEditorPage"
 import {OpenBundlePage} from "@/ui/pages/OpenBundlePage"
+import {StarterPage} from "@/ui/pages/StarterPage"
 import {OpenProjectPage} from "@/ui/pages/OpenProjectPage"
 import {DashboardPage} from "@/ui/pages/stats/DashboardPage"
 import {PrivacyPage} from "@/ui/pages/PrivacyPage"
@@ -88,6 +89,7 @@ export const App = (service: StudioService) => {
                         }
                     },
                     {path: "/open-bundle/*", factory: OpenBundlePage},
+                    {path: "/starter", factory: StarterPage},
                     {path: "/open-project", factory: OpenProjectPage},
                     {path: "/test", factory: TestPage},
                     {path: "/performance", factory: PerformancePage},
