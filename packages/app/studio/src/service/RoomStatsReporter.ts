@@ -1,4 +1,5 @@
 import {UUID} from "@opendaw/lib-std"
+import {isUpstreamOrigin} from "@/opendaw-api/Upstream"
 
 export type RoomResultStatus = "success" | "sync_timeout" | "socket_error" | "abort" | "unknown"
 
@@ -7,6 +8,7 @@ const ENDPOINT = "https://api.opendaw.studio/rooms/room-counter.php"
 export const newRoomSessionId = (): string => UUID.toString(UUID.generate())
 
 export const reportRoomResult = (sessionId: string, status: RoomResultStatus): void => {
+    if (!isUpstreamOrigin()) {return} // upstream's room stats accept opendaw.studio only
     void fetch(ENDPOINT, {
         method: "POST",
         mode: "cors",
@@ -16,7 +18,7 @@ export const reportRoomResult = (sessionId: string, status: RoomResultStatus): v
 }
 
 export const reportRoomDuration = (sessionId: string, durationMinutes: number): void => {
-    if (durationMinutes <= 0) {return}
+    if (durationMinutes <= 0 || !isUpstreamOrigin()) {return}
     const body = JSON.stringify({action: "ended", sessionId, durationMinutes})
     if (typeof navigator.sendBeacon === "function") {
         navigator.sendBeacon(ENDPOINT, new Blob([body], {type: "application/json"}))

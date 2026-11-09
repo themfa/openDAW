@@ -7,6 +7,7 @@ import {ErrorInfo} from "@/errors/ErrorInfo.ts"
 import {Surface} from "@/ui/surface/Surface.tsx"
 import {Dialogs} from "@/ui/components/dialogs.tsx"
 import {BuildInfo} from "@/BuildInfo"
+import {isUpstreamOrigin} from "@/opendaw-api/Upstream"
 
 const ExtensionPatterns = ["script-src blocked eval", "extension", "chrome-extension://", "blocked by CSP", "Zotero Connector", "hintMode", "handleHint",
     "user-script:"]
@@ -316,7 +317,8 @@ export class ErrorHandler {
 
     #report(scope: string, error: ErrorInfo, extraLogs: ReadonlyArray<LogBuffer.Entry> = []): void {
         console.error(scope, error.name, error.message, error.stack)
-        if (!import.meta.env.PROD) {return}
+        // upstream's error log accepts reports from opendaw.studio only
+        if (!import.meta.env.PROD || !isUpstreamOrigin()) {return}
         const date = new Date().toISOString()
         const logs = [...LogBuffer.get(), ...extraLogs]
         this.#names().then(names => ReportScrubber.scrubber(names), () => null).then(scrub => {

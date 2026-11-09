@@ -1,4 +1,5 @@
 import {isAbsent, Nullable, Option} from "@opendaw/lib-std"
+import {ApiRoot as UpstreamApi} from "@/opendaw-api/Upstream"
 
 export type DailySeries = ReadonlyArray<readonly [date: string, value: number]>
 
@@ -88,9 +89,9 @@ type RoomResultBreakdown = {
 export const fetchRoomStats = async (): Promise<RoomStats> => {
     const [results, duration] = await Promise.all([
         fetchJson<Record<string, RoomResultBreakdown>>(
-            "https://api.opendaw.studio/rooms/rooms-result.json", {mode: "cors", cache: "no-store"}).catch(() => ({})),
+            `${UpstreamApi}/rooms/rooms-result.json`, {mode: "cors", cache: "no-store"}).catch(() => ({})),
         fetchJson<Record<string, number>>(
-            "https://api.opendaw.studio/rooms/rooms-duration.json", {mode: "cors", cache: "no-store"}).catch(() => ({}))
+            `${UpstreamApi}/rooms/rooms-duration.json`, {mode: "cors", cache: "no-store"}).catch(() => ({}))
     ])
     const counts: Record<string, number> = {}
     for (const [date, breakdown] of Object.entries(results)) {
@@ -177,10 +178,10 @@ export const fetchDiscordStats = async (): Promise<DiscordStats> => {
 }
 
 export const fetchSponsorStats = async (): Promise<SponsorStats> =>
-    fetchJson<SponsorStats>(`/sponsors.json?t=${Date.now()}`)
+    fetchJson<SponsorStats>(`${import.meta.env.BASE_URL}sponsors.json?t=${Date.now()}`)
 
 export const fetchBuildInfo = async (): Promise<BuildInfo> =>
-    fetchJson<BuildInfo>(`/build-info.json?t=${Date.now()}`)
+    fetchJson<BuildInfo>(`${import.meta.env.BASE_URL}build-info.json?t=${Date.now()}`)
 
 export const formatRelativeDate = (timestamp: number): string => {
     const diff = Date.now() - timestamp
@@ -237,7 +238,7 @@ export const fetchErrorStats = async (): Promise<ErrorStats> => {
 // unique.json: daily-secret counts from count.php, legacy visitors.json merged in by migrate.php
 export const fetchVisitorStats = async (): Promise<DailySeries> => {
     const data = await fetchJson<Record<string, number>>(
-        "https://api.opendaw.studio/users/unique.json", {mode: "cors"})
+        `${UpstreamApi}/users/unique.json`, {mode: "cors"})
     return sortByDate(data)
 }
 

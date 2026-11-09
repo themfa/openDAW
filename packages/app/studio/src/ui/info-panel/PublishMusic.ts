@@ -11,9 +11,10 @@ import {
     tryCatch
 } from "@opendaw/lib-std"
 import {Promises} from "@opendaw/lib-runtime"
+import {ApiRoot as UpstreamApi} from "@/opendaw-api/Upstream"
 
 export namespace PublishMusic {
-    const MusicApi = "https://api.opendaw.studio/music"
+    const MusicApi = `${UpstreamApi}/music`
     // the host refuses request bodies over 8 MiB
     const UploadChunkSize = 4 << 20
 
@@ -100,7 +101,7 @@ export namespace PublishMusic {
     export const deleteMusic = async (token: string): Promise<void> => {
         const formData = new FormData()
         formData.append("token", token)
-        const response = await fetch("https://api.opendaw.studio/music/delete.php", {
+        const response = await fetch(`${UpstreamApi}/music/delete.php`, {
             method: "POST",
             body: formData
         })

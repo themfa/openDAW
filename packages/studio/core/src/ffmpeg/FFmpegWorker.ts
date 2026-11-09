@@ -69,7 +69,11 @@ class Loader {
         ffmpeg.on("progress", event => {
             this.#progressNotifier.notify(event.progress)
         })
-        const baseURL = "https://package.opendaw.studio" // mirror of https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm
+        // mirror of https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm. Color & Noise fork: package.opendaw.studio only
+        // answers CORS for opendaw.studio, so the host serves it same-origin at /opendaw-package.
+        const baseURL = typeof location === "undefined"
+            ? "https://package.opendaw.studio"
+            : `${location.origin}/opendaw-package`
         console.debug("[FFmpeg] Downloading core files...")
         const downloadWithProgress = async (url: string): Promise<ArrayBuffer> => {
             const response = await fetch(url)

@@ -3,6 +3,7 @@ import {Promises} from "@opendaw/lib-runtime"
 import {AudioData, WavFile} from "@opendaw/lib-dsp"
 import {OfflineEngineRenderer, Project, ProjectBundle, ProjectProfile} from "@opendaw/studio-core"
 import {AudioFormats} from "@/audio/AudioFormats"
+import {ApiRoot as UpstreamApi} from "@/opendaw-api/Upstream"
 
 export namespace Contest {
     export type Prize = Readonly<{ place: string, label: string, detail: string, url?: string }>
@@ -49,7 +50,7 @@ export namespace Contest {
         upload?: string, token?: string, chunkBytes?: int, id?: string
     }>
 
-    const Api = "https://api.opendaw.studio/contests"
+    const Api = `${UpstreamApi}/contests`
 
     const BestOpus: AudioFormats.OpusSettings = {
         numberOfChannels: 2, bitrate: 510, complexity: 10, frameDuration: 20_000, variable: true, application: "audio"

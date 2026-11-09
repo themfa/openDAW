@@ -3,7 +3,7 @@ import {network, Promises} from "@opendaw/lib-runtime"
 import {HttpStatus, retryTransient} from "./HttpRetry"
 import {OpenDAWHeaders} from "./OpenDAWHeaders"
 import {WclapIndex, WclapIndexEntry} from "./WclapIndex"
-import {AssetsRoot} from "./AssetsRoot"
+import {AssetsRoot} from "./Upstream"
 
 // openDAW-hosted bundles at `<FileRoot>/<uuid>.wclap`, gzip without .gz (the host would send Content-Encoding)
 export class OpenWclapAPI {

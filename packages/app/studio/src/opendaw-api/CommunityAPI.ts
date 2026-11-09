@@ -5,7 +5,7 @@ import {HttpStatus, retryTransient} from "./HttpRetry"
 import {OpenDAWHeaders} from "./OpenDAWHeaders"
 import {CommunityIndex, CommunityScript, CommunityScriptIndex, CommunityScriptTarget} from "./CommunityIndex"
 import {WclapIndex} from "./WclapIndex"
-import {AssetsRoot} from "./AssetsRoot"
+import {AssetsRoot} from "./Upstream"
 
 export class CommunityAPI {
     static readonly FileRoot = `${AssetsRoot}/community`

@@ -4,10 +4,10 @@ import {OpenDAWHeaders} from "./OpenDAWHeaders"
 import {SoundfontIndex} from "./SoundfontIndex"
 import {fetchIndex} from "./IndexFetch"
 import {Promises} from "@opendaw/lib-runtime"
-import {AssetsRoot} from "./AssetsRoot"
+import {ApiRoot as UpstreamApi, AssetsRoot} from "./Upstream"
 
 export class OpenSoundfontAPI {
-    static readonly ApiRoot = "https://api.opendaw.studio/soundfonts"
+    static readonly ApiRoot = `${UpstreamApi}/soundfonts`
     static readonly FileRoot = `${AssetsRoot}/soundfonts`
     static readonly IndexFile = `${OpenSoundfontAPI.FileRoot}/index.json`
 

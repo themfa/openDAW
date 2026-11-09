@@ -5,10 +5,10 @@ import {network, Promises} from "@opendaw/lib-runtime"
 import {AccessKey} from "./AccessKey"
 import {base64Credentials, OpenDAWHeaders} from "./OpenDAWHeaders"
 import {PresetMeta} from "@opendaw/studio-core"
-import {AssetsRoot} from "./AssetsRoot"
+import {ApiRoot as UpstreamApi, AssetsRoot} from "./Upstream"
 
 export class OpenPresetAPI {
-    static readonly ApiRoot = "https://api.opendaw.studio/presets"
+    static readonly ApiRoot = `${UpstreamApi}/presets`
     static readonly FileRoot = `${AssetsRoot}/presets`
 
     @Lazy
